@@ -34,7 +34,7 @@ h1{font:800 clamp(28px,7vw,44px)/1.05 "Fraunces",Georgia,serif;margin:0 0 10px;c
 .lede{margin:0;color:var(--muted);max-width:60ch}
 .lede strong{color:var(--ink);font-weight:600}
 .tabs{display:flex;margin:26px 0 18px;border:2px solid var(--cobalt);width:max-content;max-width:100%}
-.tabs button{font-weight:600;font-size:15px;line-height:1;padding:12px 18px;border:0;background:transparent;color:var(--cobalt);cursor:pointer}
+.tabs button{font-weight:600;font-size:15px;line-height:1;padding:15px 18px;border:0;background:transparent;color:var(--cobalt);cursor:pointer}
 .tabs button[aria-pressed="true"]{background:var(--cobalt);color:var(--tile)}
 .stars{color:var(--tram);letter-spacing:2px;font-size:18px;line-height:1}
 .stars .off{color:var(--line)}
@@ -45,13 +45,20 @@ h1{font:800 clamp(28px,7vw,44px)/1.05 "Fraunces",Georgia,serif;margin:0 0 10px;c
 .track::-webkit-scrollbar{display:none}
 .slide{flex:0 0 100%;scroll-snap-align:center;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column}
 .pics{position:relative;aspect-ratio:4/3;background:var(--chip);overflow:hidden}
-.pics .cyc{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer;display:block}
-.pics .cyc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s}
-.pics .cyc img.on{opacity:1}
-.pics .cap{position:absolute;left:0;right:0;bottom:0;padding:18px 10px 6px;font-size:11px;line-height:1.3;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.6));pointer-events:none}
+.pics .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s}
+.pics .stack img.on{opacity:1}
+.pics .bars{position:absolute;top:8px;left:10px;right:10px;display:flex;gap:4px;pointer-events:none}
+.pics .bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.45);box-shadow:0 0 2px rgba(0,0,0,.45)}
+.pics .bars i.on{background:#fff}
+.pics .phb{position:absolute;top:0;bottom:0;border:0;background:none;padding:0 8px;cursor:pointer;display:flex;align-items:center;color:#fff}
+.pics .phb.prev{left:0;width:40%;justify-content:flex-start}
+.pics .phb.next{right:0;width:60%;justify-content:flex-end}
+.pics .phb span{width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.5);display:grid;place-items:center;font-size:26px;line-height:1}
+.pics .phb:focus-visible{outline:none}
+.pics .phb:focus-visible span{outline:3px solid var(--tram)}
+.pics .cap{position:absolute;left:0;right:0;bottom:0;padding:18px 10px 6px;font-size:11px;line-height:1.3;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.6));pointer-events:none;z-index:1}
 .pics .cap a{color:#fff;pointer-events:auto}
-.pics .count{position:absolute;top:10px;right:10px;font-size:12px;background:rgba(0,0,0,.6);color:#fff;padding:4px 8px;pointer-events:none}
-@media (prefers-reduced-motion:reduce){.pics .cyc img{transition:none}}
+@media (prefers-reduced-motion:reduce){.pics .stack img{transition:none}}
 .ph{height:100%;display:flex;align-items:flex-end;padding:16px;background-color:var(--cobalt);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.18' stroke-width='3'%3E%3Crect x='1.5' y='1.5' width='77' height='77'/%3E%3Ccircle cx='40' cy='40' r='14'/%3E%3C/g%3E%3C/svg%3E")}
 .ph span{font:800 88px/0.8 "Fraunces",Georgia,serif;color:#fff;opacity:.9}
 .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
@@ -67,7 +74,7 @@ h1{font:800 clamp(28px,7vw,44px)/1.05 "Fraunces",Georgia,serif;margin:0 0 10px;c
 .pos{font-size:15px;color:var(--muted)}
 
 /* map */
-.mapbox{position:relative;background:var(--sea);border:1px solid var(--line);touch-action:none;overflow:hidden}
+.mapbox{position:relative;background:var(--sea);border:1px solid var(--line);touch-action:manipulation;overflow:hidden}
 .mapbox svg{display:block;width:100%;height:min(70vh,560px)}
 .zoom{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .zoom button{font-size:14px;padding:8px 10px;border:1px solid var(--cobalt);background:var(--surface);color:var(--cobalt);cursor:pointer}
@@ -102,11 +109,41 @@ section.heads h2{font:800 28px/1.15 "Fraunces",Georgia,serif;margin:0 0 14px;col
 .warn .src{font-size:14px;color:var(--muted);margin-top:4px}
 footer{margin:56px 0 0;padding:22px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 [hidden]{display:none!important}
+.menu-btn{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;z-index:20;width:48px;height:48px;background:var(--surface);border:2px solid var(--cobalt);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:0}
+.menu-btn span{display:block;width:22px;height:2.5px;background:var(--cobalt)}
+.menu{position:fixed;inset:0;z-index:30;background:rgba(8,18,38,.55);display:flex;justify-content:flex-end}
+.menu-inner{width:min(88vw,380px);height:100%;overflow:auto;background:var(--surface);border-left:6px solid var(--cobalt);padding:calc(env(safe-area-inset-top,0px) + 16px) 20px calc(env(safe-area-inset-bottom,0px) + 28px)}
+.menu-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.menu-head strong{font:800 24px/1.1 "Fraunces",Georgia,serif;color:var(--cobalt-deep)}
+.menu-close{width:44px;height:44px;border:2px solid var(--cobalt);background:var(--surface);color:var(--cobalt);font-size:26px;line-height:1;cursor:pointer}
+.menu nav{display:flex;flex-direction:column;margin:6px 0 18px;border-top:1px solid var(--line)}
+.menu nav a{padding:13px 0;border-bottom:1px solid var(--line);font-weight:600;text-decoration:none}
+.menu h3{font:600 17px/1.3 "Fraunces",Georgia,serif;margin:16px 0 4px}
+.menu p,.menu li{margin:0;font-size:16px;color:var(--ink)}
+.menu ul{margin:0;padding-left:0;list-style:none}
+.menu li{padding:2px 0}
+.nav .mid{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+#jump{width:auto;max-width:100%;margin:0;font-size:15px;padding:8px}
 @media (min-width:720px){.slide{flex-direction:row}.pics{flex:0 0 58%;aspect-ratio:auto;min-height:380px}.body{padding:24px}}
 </style>
 </head>
 <body>
 <div class="band" aria-hidden="true"></div>
+<button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Menu e como usar"><span></span><span></span><span></span></button>
+<div class="menu" id="menu" hidden>
+  <div class="menu-inner" role="dialog" aria-modal="true" aria-labelledby="menu-title">
+    <div class="menu-head"><strong id="menu-title">Como usar</strong><button type="button" class="menu-close" id="menu-close" aria-label="Fechar">×</button></div>
+    <nav aria-label="Seções"><a href="#destaques">Destaques</a><a href="#mapa">Mapa</a><a href="#avisos">Antes de ir, fica ligado</a></nav>
+    <h3>Passar de um lugar pro outro</h3>
+    <p>Desliza o slide pro lado ou usa as setas ‹ › embaixo dele. Pra pular direto pra um lugar, escolhe em “Ir para…”.</p>
+    <h3>Ver mais fotos de um lugar</h3>
+    <p>As barrinhas no topo da foto mostram quantas fotos tem. Toca no lado direito da foto pra ir pra próxima e no lado esquerdo pra voltar.</p>
+    <h3>Usar o mapa</h3>
+    <p>Toca num pino pra ver a dica, as fotos e o que fica perto, com distância e tempo de carro. Os botões de região aproximam o mapa quando os pinos estão muito juntos.</p>
+    <h3>O que as estrelas querem dizer</h3>
+    <ul><li>★★★★★ Não perde de jeito nenhum</li><li>★★★★ Vale muito a pena</li><li>★★★ Se der tempo, vai</li></ul>
+  </div>
+</div>
 <div class="wrap">
   <header class="title-card">
     <h1>30 lugares que eu não perderia em Portugal</h1>
@@ -123,7 +160,7 @@ footer{margin:56px 0 0;padding:22px 0 40px;border-top:1px solid var(--line);colo
       <div class="track" id="track" tabindex="0" aria-roledescription="carrossel"></div>
       <div class="nav">
         <button type="button" id="prev" aria-label="Anterior">‹</button>
-        <span class="pos" id="pos" aria-live="polite"></span>
+        <div class="mid"><span class="pos" id="pos" aria-live="polite"></span><select id="jump" aria-label="Ir para um lugar"></select></div>
         <button type="button" id="next" aria-label="Próximo">›</button>
       </div>
     </div>
@@ -136,7 +173,7 @@ footer{margin:56px 0 0;padding:22px 0 40px;border-top:1px solid var(--line);colo
     <div class="card" id="card"></div>
   </section>
 
-  <section class="heads">
+  <section class="heads" id="avisos">
     <h2>Antes de ir, fica ligado</h2>
     <div id="warns"></div>
   </section>
@@ -198,15 +235,15 @@ function picsHTML(p, eager){
   const ph = PHOTOS[p.id]||[];
   if(!ph.length) return `<div class="pics"><div class="ph" aria-hidden="true"><span>${p.rank}</span></div></div>`;
   const many = ph.length>1;
-  return `<div class="pics" data-id="${p.id}" data-i="0"><button type="button" class="cyc" aria-label="${many?`Próxima foto de ${esc(p.short)}`:esc(p.short)}" ${many?"":"disabled"}>${ph.map((f,i)=>`<img src="${esc(f.src)}" alt="${esc(p.short)}, foto ${i+1} de ${ph.length}" ${i===0?'class="on"':''} ${eager&&i===0?'':'loading="lazy"'} decoding="async">`).join("")}</button><div class="cap">${capHTML(ph[0])}</div>${many?`<span class="count">1 de ${ph.length}, toca na foto</span>`:""}</div>`;
+  return `<div class="pics" data-id="${p.id}" data-i="0"><div class="stack">${ph.map((f,i)=>`<img src="${esc(f.src)}" alt="${esc(p.short)}, foto ${i+1} de ${ph.length}" ${i===0?'class="on"':''} ${eager&&i===0?'':'loading="lazy"'} decoding="async">`).join("")}</div>${many?`<div class="bars" aria-hidden="true">${ph.map((_,i)=>`<i${i===0?' class="on"':''}></i>`).join("")}</div><button type="button" class="phb prev" data-d="-1" aria-label="Foto anterior de ${esc(p.short)}"><span aria-hidden="true">‹</span></button><button type="button" class="phb next" data-d="1" aria-label="Próxima foto de ${esc(p.short)}"><span aria-hidden="true">›</span></button>`:""}<div class="cap">${capHTML(ph[0])}</div></div>`;
 }
 document.addEventListener("click",e=>{
-  const b=e.target.closest(".cyc"); if(!b||b.disabled) return;
-  const box=b.parentElement, ph=PHOTOS[box.dataset.id]||[]; if(ph.length<2) return;
-  const i=(+box.dataset.i+1)%ph.length; box.dataset.i=i;
-  [...b.querySelectorAll("img")].forEach((im,j)=>im.classList.toggle("on",j===i));
+  const b=e.target.closest(".phb"); if(!b) return;
+  const box=b.closest(".pics"), ph=PHOTOS[box.dataset.id]||[]; if(ph.length<2) return;
+  const i=(+box.dataset.i + +b.dataset.d + ph.length)%ph.length; box.dataset.i=i;
+  box.querySelectorAll(".stack img").forEach((im,j)=>{ if(j===i) im.loading="eager"; im.classList.toggle("on",j===i); });
+  box.querySelectorAll(".bars i").forEach((x,j)=>x.classList.toggle("on",j===i));
   box.querySelector(".cap").innerHTML=capHTML(ph[i]);
-  const c=box.querySelector(".count"); if(c) c.textContent=`${i+1} de ${ph.length}, toca na foto`;
 });
 
 /* deck */
@@ -223,7 +260,10 @@ track.innerHTML = order.map((p,n)=>`<article class="slide" id="s-${p.id}" aria-l
   </div></article>`).join("");
 let idx = 0;
 const pos = document.getElementById("pos"), prev=document.getElementById("prev"), next=document.getElementById("next");
-function updPos(){ pos.textContent = `${idx+1} de ${order.length}`; prev.disabled = idx===0; next.disabled = idx===order.length-1; }
+const jump=document.getElementById("jump");
+jump.innerHTML=`<option value="" disabled>Ir para…</option>`+order.map((p,i)=>`<option value="${i}">${p.rank}. ${esc(p.short)}</option>`).join("");
+jump.onchange=()=>{ if(jump.value!=="") goTo(+jump.value); };
+function updPos(){ pos.textContent = `${idx+1} de ${order.length}`; prev.disabled = idx===0; next.disabled = idx===order.length-1; jump.value=String(idx); }
 function goTo(i){ idx=Math.max(0,Math.min(order.length-1,i)); track.children[idx].scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"nearest",inline:"center"}); updPos(); }
 prev.onclick=()=>goTo(idx-1); next.onclick=()=>goTo(idx+1);
 track.addEventListener("keydown",e=>{ if(e.key==="ArrowRight"){e.preventDefault();goTo(idx+1);} if(e.key==="ArrowLeft"){e.preventDefault();goTo(idx-1);} });
@@ -290,6 +330,15 @@ function renderCard(){
   card.querySelector("#to").onchange=e=>{const q=byId[e.target.value];document.getElementById("calc").textContent=q?`Até ${q.short}: ${distText(km(p,q))}.`:"";};
 }
 card.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b){select(b.dataset.go,true);card.scrollIntoView({behavior:"smooth",block:"start"});}});
+
+/* menu */
+const menu=document.getElementById("menu"), mbtn=document.getElementById("menu-btn");
+function openMenu(){ menu.hidden=false; mbtn.setAttribute("aria-expanded","true"); document.getElementById("menu-close").focus(); }
+function closeMenu(){ menu.hidden=true; mbtn.setAttribute("aria-expanded","false"); mbtn.focus(); }
+mbtn.onclick=openMenu;
+document.getElementById("menu-close").onclick=closeMenu;
+menu.addEventListener("click",e=>{ if(e.target===menu || e.target.closest("nav a")) closeMenu(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !menu.hidden) closeMenu(); });
 
 /* views */
 function fromHash(){
