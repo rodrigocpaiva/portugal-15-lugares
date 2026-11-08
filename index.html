@@ -77,6 +77,7 @@ h1{font:800 clamp(28px,7vw,44px)/1.05 "Fraunces",Georgia,serif;margin:0 0 10px;c
 .mapbox{position:relative;background:var(--sea);border:1px solid var(--line);touch-action:manipulation;overflow:hidden}
 .mapbox svg{display:block;width:100%;height:min(70vh,560px)}
 .zoom{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+@media (max-width:600px){.zoom,.tabs{margin-right:58px}}
 .zoom button{font-size:14px;padding:8px 10px;border:1px solid var(--cobalt);background:var(--surface);color:var(--cobalt);cursor:pointer}
 .zoom button[aria-pressed="true"]{background:var(--cobalt);color:var(--tile)}
 .pin{cursor:pointer}
